@@ -20,7 +20,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		int max_total = 0;
 		for (int j = 0; j < i; j++) {
-			if (arr[j].size < arr[i].size && arr[i].cnt < arr[j].cnt + 1) {
+			if (arr[j].size < arr[i].size) {
 				max_total = max_total > arr[j].total ? max_total : arr[j].total;
 			}
 		}
