@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstdbool>
-#include <vector>
 #include <queue>
 using namespace std;
+
 bool visited[100001];
 
 int main() {
