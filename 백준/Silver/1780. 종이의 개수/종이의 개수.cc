@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstdbool>
 #include <cmath>
@@ -37,18 +36,13 @@ void divideArea(int rowIdx, int colIdx, int len) {
 	int totalBlocks = len * len;
 	int newLen = sqrt(totalBlocks / 9);
 	//cout << rowIdx << " " << colIdx << " " << len << '\n';
+    
 	for (int i = rowIdx; i < rowIdx + len; i++) {
 		for (int j = colIdx; j < colIdx + len; j++) {
 			if ((i == rowIdx || i == rowIdx + newLen || i == rowIdx + newLen * 2) &&
 				(j == colIdx || j == colIdx + newLen || j == colIdx + newLen * 2)) {
-				if (isAllSame(i, j, newLen)) {
-
-					countNum(map[i][j]);
-				}
-				else {
-					
-					divideArea(i, j, newLen);
-				}
+				if (isAllSame(i, j, newLen)) countNum(map[i][j]);
+				else divideArea(i, j, newLen);
 			}
 		}
 	}
