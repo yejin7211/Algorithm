@@ -12,7 +12,7 @@ def solution(s):
                 n = ""
                 if s[i] == ',':
                     i += 1
-                while s[i] != '}' and s[i] != ',' and s[i] !=' {':
+                while '0' <= s[i] and s[i] <= '9':
                     n += s[i]
                     i += 1
                 nums.append(int(n))
