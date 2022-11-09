@@ -1,28 +1,25 @@
 #include <iostream>
-#include <cstdbool>
+
 using namespace std;
-int map[1001][1001];
-bool visited[1001][1001];
+
 int n, m;
+int map[1001][1001];
+int visited[1001];
 
-void bfs(int rowIdx) {
-	for (int i = 1; i <= n; i++)
-		visited[i][rowIdx] = true;
-
-	for (int j = 1; j <= n; j++) {
-		if (map[rowIdx][j] == 1) {
-			if (!visited[rowIdx][j]) bfs(j);
-
-		}
+void search(int u) {
+	visited[u] = 1;
+	for (int v = 1; v <= n; v++) {
+		if (!visited[v] && map[u][v] == 1)
+			search(v);
 	}
 }
+
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
 	cin >> n >> m;
-
 	while (m--) {
 		int u, v;
 		cin >> u >> v;
@@ -32,12 +29,11 @@ int main() {
 
 	int cnt = 0;
 	for (int i = 1; i <= n; i++) {
-		if (!visited[1][i]) {
-			bfs(i);
+		if (!visited[i]) {
+			search(i);
 			cnt++;
 		}
 	}
-
 	cout << cnt;
 	return 0;
 }
