@@ -1,10 +1,10 @@
 #include <iostream>
+#define MAX(a, b) ( (a)>(b)?(a):(b) )
 
 using namespace std;
 
-int map[500][500];
 int n, m;
-int maxSum = 0;
+int map[500][500];
 
 void input() {
 	cin >> n >> m;
@@ -13,111 +13,97 @@ void input() {
 			cin >> map[i][j];
 }
 
-void tetro1(int y, int x) {
-	if (x + 3 < m) {
-		int sum = 0;
-		for (int j = x; j <= x + 3; j++)
-			sum += map[y][j];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 3 < n) {
-		int sum = 0;
-		for (int i = y; i <= y + 3; i++)
-			sum += map[i][x];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
+int tetro1_1(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y][x + 3];
 }
-void tetro2(int y, int x) {
-	int sum = 0;
-	for (int i = y; i <= y + 1; i++)
-		for (int j = x; j <= x + 1; j++)
-			sum += map[i][j];
-	maxSum = maxSum > sum ? maxSum : sum;
+int tetro1_2(int y, int x) {
+	return map[y][x] + map[y + 1][x] + map[y + 2][x] + map[y + 3][x];
 }
-void tetro3(int y, int x) {
-	if (y + 2 < n && x + 1 < m) {
-		int sum = map[y][x] + map[y + 1][x] + map[y + 2][x] + map[y + 2][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 2 < n && x - 1 >= 0) {
-		int sum = map[y][x] + map[y + 1][x] + map[y + 2][x] + map[y + 2][x - 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 1 < n && x + 2 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y + 1][x];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 1 < n && x + 2 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y + 1][x + 2];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 2 < n && x + 1 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y + 1][x + 1] + map[y + 2][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 2 < n && x - 1 >= 0) {
-		int sum = map[y][x] + map[y][x - 1] + map[y + 1][x - 1] + map[y + 2][x - 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y - 1 >= 0 && x + 2 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y - 1][x + 2];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 1 < n && x + 2 < m) {
-		int sum = map[y][x] + map[y + 1][x] + map[y + 1][x + 1] + map[y + 1][x + 2];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
+
+int tetro2(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y + 1][x] + map[y + 1][x + 1];
 }
-void tetro4(int y, int x) {
-	if (y + 2 < n && x + 1 < m) {
-		int sum = map[y][x] + map[y + 1][x] + map[y + 1][x + 1] + map[y + 2][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y - 1 >= 0 && x + 2 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y - 1][x + 1] + map[y - 1][x + 2];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 1 < n && x + 2 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y + 1][x + 1] + map[y + 1][x + 2];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 2 < n && x - 1 >= 0) {
-		int sum = map[y][x] + map[y + 1][x] + map[y + 1][x - 1] + map[y + 2][x - 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
+
+int tetro3_1(int y, int x) {
+	return map[y][x] + map[y + 1][x] + map[y + 2][x] + map[y + 2][x + 1];
 }
-void tetro5(int y, int x) {
-	if (y + 1 < n && x + 2 < m) {
-		int sum = map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y + 1][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 1 < n && y - 1 >= 0 && x + 1 < m) {
-		int sum = map[y][x] + map[y - 1][x + 1] + map[y][x + 1] + map[y + 1][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 2 < n && x + 1 < m) {
-		int sum = map[y][x] + map[y + 1][x] + map[y + 2][x] + map[y + 1][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
-	if (y + 1 < n && x - 1 >= 0 && x + 1 < m) {
-		int sum = map[y][x] + map[y + 1][x - 1] + map[y + 1][x] + map[y + 1][x + 1];
-		maxSum = maxSum > sum ? maxSum : sum;
-	}
+int tetro3_2(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y + 1][x];
+}
+int tetro3_3(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y + 1][x + 1] + map[y + 2][x + 1];
+}
+int tetro3_4(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y - 1][x + 2];
+}
+int tetro3_5(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y - 1][x + 1] + map[y - 2][x + 1];
+}
+int tetro3_6(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y + 1][x + 2];
+}
+int tetro3_7(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y + 1][x] + map[y + 2][x];
+}
+int tetro3_8(int y, int x) {
+	return map[y][x] + map[y + 1][x] + map[y + 1][x + 1] + map[y + 1][x + 2];
+}
+
+int tetro4_1(int y, int x) {
+	return map[y][x] + map[y + 1][x] + map[y + 1][x + 1] + map[y + 2][x + 1];
+}
+int tetro4_2(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y + 1][x + 1] + map[y + 1][x + 2];
+}
+int tetro4_3(int y, int x) {
+	return map[y][x] + map[y + 1][x] + map[y + 1][x - 1] + map[y + 2][x - 1];
+}
+int tetro4_4(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y + 1][x] + map[y + 1][x - 1];
+}
+
+int tetro5_1(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y + 1][x + 1];
+}
+int tetro5_2(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y][x + 2] + map[y - 1][x + 1];
+}
+int tetro5_3(int y, int x) {
+	return map[y][x] + map[y + 1][x] + map[y + 2][x] + map[y + 1][x + 1];
+}
+int tetro5_4(int y, int x) {
+	return map[y][x] + map[y][x + 1] + map[y - 1][x + 1] + map[y + 1][x + 1];
 }
 
 void sol() {
+	int maxSum = 0;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			if (i + 3 < n || j + 3 < m)
-				tetro1(i, j);
-			if (i + 1 < n && j + 1 < m)
-				tetro2(i, j);
-			if (i + 2 < n || i - 1 >= 0 || j + 2 < m || j - 1 >= 0)
-				tetro3(i, j);
-			if (i + 2 < n || i - 1 >= 0 || j + 2 < m || j - 1 >= 0)
-				tetro4(i, j);
-			if (i + 2 < n || i - 1 >= 0 || j + 2 < m || j - 1 >= 0)
-				tetro5(i, j);
+			if (j + 3 < m) maxSum = MAX(tetro1_1(i, j), maxSum);
+			if (i + 3 < n) maxSum = MAX(tetro1_2(i, j), maxSum);
+			if (i + 1 < n && j + 1 < m) maxSum = MAX(tetro2(i, j), maxSum);
+			if (i + 2 < n && j + 1 < m) {
+				maxSum = MAX(tetro3_1(i, j), maxSum);
+				maxSum = MAX(tetro3_3(i, j), maxSum);
+				maxSum = MAX(tetro3_7(i, j), maxSum);
+				maxSum = MAX(tetro4_1(i, j), maxSum);
+				maxSum = MAX(tetro5_3(i, j), maxSum);
+			}
+			if (i + 1 < n && j + 2 < m) {
+				maxSum = MAX(tetro3_2(i, j), maxSum);
+				maxSum = MAX(tetro3_6(i, j), maxSum);
+				maxSum = MAX(tetro3_8(i, j), maxSum);
+				maxSum = MAX(tetro4_2(i, j), maxSum);
+				maxSum = MAX(tetro5_1(i, j), maxSum);
+			}
+			if (i - 1 >= 0 && j + 2 < m) {
+				maxSum = MAX(tetro3_4(i, j), maxSum);
+				maxSum = MAX(tetro5_2(i, j), maxSum);
+			}
+			if (i - 2 >= 0 && j + 1 < m)  maxSum = MAX(tetro3_5(i, j), maxSum);
+			if (i + 2 < n && j - 1 >= 0)  maxSum = MAX(tetro4_3(i, j), maxSum);
+			if (i + 1 < n && j - 1 >= 0 && j + 1 < m)  maxSum = MAX(tetro4_4(i, j), maxSum);
+			if (i - 1 >= 0 && i + 1 < n && j + 1 < m) maxSum = MAX(tetro5_4(i, j), maxSum);
 		}
 	}
 	cout << maxSum;
