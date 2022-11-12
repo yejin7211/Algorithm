@@ -8,7 +8,7 @@ def solution(X, Y):
             numsDic[c] += 1
         else:
             numsDic[c] = 1
-            
+
     listXY = list()
     for c in listX:
         if c in numsDic and numsDic[c] > 0:
