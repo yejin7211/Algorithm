@@ -16,8 +16,6 @@ heap = [[0, s, [s]]]
 dist[s] = 0
 while heap:
     cost, cur, visited = heappop(heap)
-    if cost > dist[cur]:
-        continue
     if cur == e:
         print(cost)
         print(len(visited))
