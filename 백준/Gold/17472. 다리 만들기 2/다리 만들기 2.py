@@ -54,7 +54,7 @@ def find(x):
 
 
 def union(x, y):
-    root[max(x, y)] = root[min(x, y)]
+    root[max(x, y)] = min(x, y)
 
 
 if len(bridges) == 0:
