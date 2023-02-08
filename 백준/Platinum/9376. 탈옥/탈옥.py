@@ -49,8 +49,6 @@ for _ in range(t):
 
     for i in range(h+2):
         for j in range(w+2):
-            if board[i][j] == '*':
-                continue
             if dp1[i][j] != -1 and dp2[i][j] != -1 and dp3[i][j] != -1:
                 res = dp1[i][j] + dp2[i][j] + dp3[i][j]
                 if board[i][j] == '#':
