@@ -17,6 +17,13 @@ while q:
     if y == h-1 and x == w-1:
         print(cnt)
         exit(0)
+    for i in range(4):
+        ny, nx = y+dy[i], x+dx[i]
+        if ny < 0 or ny >= h or nx < 0 or nx >= w:
+            continue
+        if board[ny][nx] == 0 and not visited[ny][nx][k]:
+            visited[ny][nx][k] = True
+            q.append([cnt+1, k, ny, nx])
     if k > 0:
         for i in range(4, 12):
             ny, nx = y + dy[i], x + dx[i]
@@ -25,12 +32,5 @@ while q:
             if board[ny][nx] == 0 and not visited[ny][nx][k-1]:
                 visited[ny][nx][k-1] = True
                 q.append([cnt+1, k-1, ny, nx])
-    for i in range(4):
-        ny, nx = y+dy[i], x+dx[i]
-        if ny < 0 or ny >= h or nx < 0 or nx >= w:
-            continue
-        if board[ny][nx] == 0 and not visited[ny][nx][k]:
-            visited[ny][nx][k] = True
-            q.append([cnt+1, k, ny, nx])
-
+                
 print(-1)
