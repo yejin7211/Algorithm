@@ -2,7 +2,7 @@ from collections import deque
 
 def solution(maps):
     n, m = len(maps), len(maps[0])
-    visited = [[[False for _ in range(2)] for _ in range(m)] for _ in range(n)]
+    visited = [[[False, False] for _ in range(m)] for _ in range(n)]
     
     dy = [-1, 1, 0, 0]
     dx = [0, 0, -1, 1]
